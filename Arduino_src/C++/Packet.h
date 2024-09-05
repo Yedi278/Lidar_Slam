@@ -9,7 +9,7 @@ struct single_packet{
 
 class Packet
 {
-public:
+private:
   int angle[4];
   float rpm;
   int distance[4];
@@ -30,6 +30,16 @@ public:
       std::cout << std::hex << data[i] << " ";
     }
     std::cout << std::endl;
+  }
+
+  single_packet get_packets(int i){
+
+    single_packet sp;
+    sp.angle = angle[i];
+    sp.distance = distance[i];
+    sp.signal_strength = signal_strength[i];
+    
+    return sp;
   }
 
   Packet& operator=(const Packet& p){

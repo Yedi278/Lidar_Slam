@@ -9,11 +9,18 @@ int main(int argc, char **argv) {
 
     p = sh.read_data_packet();
     if(p._is_valid()){
+
       p.extrapolate();
-      // std::cout << static_cast<int>(p.angle[0] - 0xa0) << std::endl;
+
+      single_packet sp;
+
       for(int i=0; i<4; i++){
-        std::cout << "Angle: " << p.angle[i] << " Distance: " << p.distance[i] << " Signal Strenght: " << p.signal_strength[i] << std::endl;
+        sp = p.get_packets(i);
+        std::cout << "Angle: " << sp.angle << " Distance: " << sp.distance << " Signal Strength: " << sp.signal_strength << std::endl;
       }
+
+    }else{
+      std::cout << "Invalid packet" << std::endl;
     }
   }
 
