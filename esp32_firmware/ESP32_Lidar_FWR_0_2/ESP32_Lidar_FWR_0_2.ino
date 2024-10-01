@@ -52,7 +52,10 @@ void process(buffer_pointer it){
   float rpm = float(*std::next(it,2) | ((*std::next(it,3)<<8))) / 64.f;
 
   for(int i=0; i<4; i++){
-    Serial.println("angle: "+String(4*angle+i)+"\trpm: "+String(rpm)+"\tdist: "+String(dist(std::next(it,4+4*i))));
+    // Serial.println("angle: "+String(4*angle+i)+"\trpm: "+String(rpm)+"\tdist: "+String(dist(std::next(it,4+4*i))));
+    String a = String(4*angle+i)+","+String(rpm)+","+String(dist(std::next(it,4+4*i)))+"\n";
+    Serial.write(a.c_str());
+
   }
 }
 
@@ -67,11 +70,12 @@ void print(const std::vector<unsigned char> &data_buffer){
 
     if(*it == 0xfa && *(std::next(it,1)) <= 0xf9 && *(std::next(it,1)) >= 0xa0 ){
 
-      buffer_pointer jt;
-      for(jt=it; jt!=std::next(it,22); jt++){
-        Serial.print(*jt, HEX);
-      }
-      Serial.println();
+      // buffer_pointer jt;
+      // for(jt=it; jt!=std::next(it,22); jt++){
+      //   Serial.print(*jt, HEX);
+      // }
+      // Serial.println();
+
       process(it);
     }
   }
@@ -102,8 +106,8 @@ void loop() {
           print(data_buffer);
 
           data_buffer.clear();
-          data_buffer.push_back(0xfa);
 
+          data_buffer.push_back(0xfa); //re-add last 0xFA
         }
 
         data_buffer.push_back(read_byte);

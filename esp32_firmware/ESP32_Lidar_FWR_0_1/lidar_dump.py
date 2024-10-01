@@ -5,7 +5,7 @@ from packet_lib import packet
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore
 
-esp32 = serial.Serial(port='/dev/ttyUSB0', baudrate=115200)
+esp32 = serial.Serial(port='COM7', baudrate=115200)
 
 if esp32.isOpen():
     print("Serial port opened succesfully!")

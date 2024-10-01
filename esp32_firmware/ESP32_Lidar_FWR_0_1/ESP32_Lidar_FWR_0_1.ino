@@ -6,7 +6,7 @@ uint8_t read_byte;
 
 void setup(){
   Serial.begin(115200);
-  lidar.begin(115200, SERIAL_8N1, 18, 19);
+  lidar.begin(115200, SERIAL_8N1, 19, 18);
 }
 
 void loop() {
