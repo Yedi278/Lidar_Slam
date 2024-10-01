@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/mrrobot/Documents/Lidar_Slam/ros_ws/install/setup.sh
