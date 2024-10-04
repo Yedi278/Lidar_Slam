@@ -5,7 +5,7 @@ from packet_lib import packet
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore
 
-esp32 = serial.Serial(port='COM7', baudrate=115200)
+esp32 = serial.Serial(port='COM8', baudrate=115200)
 
 if esp32.isOpen():
     print("Serial port opened succesfully!")
@@ -32,6 +32,7 @@ def update():
   global curve,buffer
 
   buffer.append(esp32.readline(1).hex())
+  
   if buffer[-1] == 'a0' and buffer[-2] == 'fa':
     buffer.pop(-1)
     buffer.pop(-1)
