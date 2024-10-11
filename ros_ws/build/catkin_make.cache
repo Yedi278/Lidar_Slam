@@ -1,2 +1,0 @@
-
--DCATKIN_DEVEL_PREFIX=/home/mrrobot/Documents/Lidar_Slam/ros_ws/devel -DCMAKE_INSTALL_PREFIX=/home/mrrobot/Documents/Lidar_Slam/ros_ws/install -G Unix Makefiles
