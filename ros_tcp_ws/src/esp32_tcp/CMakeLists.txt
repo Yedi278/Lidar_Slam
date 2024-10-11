@@ -9,7 +9,7 @@ project(esp32_tcp)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  std_msgs 
+  std_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -133,7 +133,7 @@ ${catkin_INCLUDE_DIRS}
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/esp32_tcp_node.cpp)
-add_executable(tcp_receive_node src/tcp_receive_node.cpp)
+add_executable(Bohr_receive src/Bohr_receive.cpp src/tcp_receive.cpp src/tcp_receive.h)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -144,13 +144,13 @@ add_executable(tcp_receive_node src/tcp_receive_node.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(tcp_receive_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(Bohr_receive ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(tcp_receive_node
+target_link_libraries(Bohr_receive
   ${catkin_LIBRARIES}
 )
 
