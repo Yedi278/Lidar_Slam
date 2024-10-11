@@ -2,3 +2,4 @@ Arduino_src\C++\build
 ros_tcp_ws/build
 ros_tcp_ws/devel
 ros_tcp_ws/logs
+.vscode
