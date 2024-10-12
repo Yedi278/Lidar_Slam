@@ -1,28 +1,51 @@
 import socket
 import sys
+from tcp_server_sender import *
+import threading
+import time
+
 
 def tcp_client(ip:str, port:int):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print('connecting to server...')
     client.connect((ip, port))
+    print('connected to server')
+    
+    return client
 
+def send_data(conn:socket):
+    data = b'X',b'F',b'Y',b'F'
+    print('sending data...')
+    
     while True:
         try:
-            data = client.recv(12)
-            angle = int.from_bytes(data[0:2], byteorder='little')
-            rpm = int.from_bytes(data[2:4], byteorder='little')
-            dist = int.from_bytes(data[4:6], byteorder='little')
-            wh1 = int.from_bytes(data[6:8], byteorder='little')
-            wh2 = int.from_bytes(data[8:10], byteorder='little')
-            othr = int.from_bytes(data[10:12], byteorder='little')
-            print(f'{angle}\t{rpm}\t{dist}\t{wh1}\t{wh2}\t{othr}')
-
-        except KeyboardInterrupt:
-            client.close()
+            for i in data:
+                conn.send(i)
+            time.sleep(1)
+        except (KeyboardInterrupt, SystemExit):
+            conn.close()
             sys.exit()
-    
-    
+        except Exception as e:
+            print(e)
+            conn.close()
+            sys.exit()
+
 if __name__ == '__main__':
+
     ip = '192.168.1.169'
     port = 1234
 
-    tcp_client(ip, port)
+    client_soc = tcp_client(ip, port)
+    send_data_thread = threading.Thread(target=send_data, args=(client_soc,))
+    send_data_thread.start()
+    
+    while True:
+        try:
+            receive_data(client_soc, 12)
+        except (KeyboardInterrupt, SystemExit):
+            client_soc.close()
+            sys.exit()
+        except Exception as e:
+            print(e)
+            client_soc.close()
+            sys.exit()
